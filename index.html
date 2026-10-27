@@ -4,23 +4,26 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Astros Group Outings · Concept</title>
+<title>Astros Group Tickets · GSCG Concept</title>
+<meta name="description" content="A student concept for Houston Astros group ticket sales, by the Gonzaga Sport Consulting Group.">
 <link rel="icon" href="img/astros.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div class="concept">Concept prototype by the Gonzaga Sport Consulting Group for the Houston Astros · Not an official Astros page
-  <button id="notesBtn" aria-pressed="false">Strategy notes: Off</button></div>
-<nav class="nav"><div class="w">
-  <a class="brand" href="#"><img src="img/astros.png" alt="Houston Astros"><span>Astros Group Outings<small>Daikin Park · Houston</small></span></a>
-  <ul id="tabs" role="tablist"></ul>
-  <span class="btn or sm">Book a Group</span>
-</div></nav>
+<div class="concept">Concept prototype by the Gonzaga Sport Consulting Group · Not an official Houston Astros or MLB page · <a href="v1/">Earlier version</a></div>
+<header class="site-nav"><nav id="nav" class="nav-in"></nav></header>
 <main id="app"></main>
-<footer><div class="w"><span class="fl"><img src="img/astros.png" alt="">Houston Astros Group Sales</span><span>Concept prototype · Gonzaga Sport Consulting Group · Fall 2026 <img src="img/gscg.png" alt="GSCG" class="gscg"></span></div></footer>
+<footer class="foot"><div class="w foot-in">
+  <div class="foot-brand"><img src="img/astros.png" alt=""><div><b>Houston Astros Group Tickets</b><span>Daikin Park · 501 Crawford St · Houston, TX</span></div></div>
+  <ul><li><a href="#/">Group Tickets</a></li><li><a href="#/hub">Group Leader Hub</a></li><li><a href="#/seating-map">Seating Map</a></li><li><a href="#/tickets">Inside Astros Tickets</a></li><li><a href="#/credits">Photo Credits</a></li></ul>
+  <p class="foot-gscg"><img src="img/gscg.png" alt="GSCG">A concept by the Gonzaga Sport Consulting Group for the Houston Astros · Fall 2026 · For educational purposes only</p>
+</div></footer>
+<div id="help" class="help"></div>
+<div id="toast" class="toast" role="status"></div>
 <script src="content.js"></script>
+<script src="map.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
