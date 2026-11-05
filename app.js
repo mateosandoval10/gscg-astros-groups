@@ -89,23 +89,6 @@
     </div></section>`;
   }
 
-  function clubs() {
-    return `<section class="band" id="premium"><div class="w">
-      ${sectionTitle('Premium Groups & Club Spaces', 'Unlock premium group benefits and access to exclusive club spaces with upgraded food and drink when purchasing six or more tickets. These seats are among the best at Daikin Park.')}
-      <div class="clubs">${S.clubs.map(c => `<a class="club" href="https://www.mlb.com/astros/tickets/premium/suites" target="_blank" rel="noopener" style="background-image:${bg(c)}">
-        ${icon('ext', 'club-ext')}<span>${c.t}</span></a>`).join('')}</div>
-      <p class="center small">View all of our premium spaces ${extLink('here', 'https://www.mlb.com/astros/tickets/premium/suites', 'u')}.</p>
-      ${reqBtn}
-    </div></section>`;
-  }
-
-  function offers() {
-    return `<section class="band alt" id="offers"><div class="w">
-      ${sectionTitle('Special Ticket Offers')}
-      <div class="offers">${S.offers.map(o => `<div class="offer"><h3>${o.t}</h3><p>${o.d}</p>${pill(o.cta, '#/connect', 'sm')}</div>`).join('')}</div>
-    </div></section>`;
-  }
-
   function team() {
     return `<section class="band" id="team"><div class="w">
       ${sectionTitle('Meet the Team', 'Every type of group has its own specialist, so you always talk to someone who knows your world.')}
@@ -187,7 +170,7 @@
         <div class="center">${pill('Open Full Seating Map', '#/seating-map')}</div>
       </div></section>
 
-      ${clubs()}${offers()}${team()}${connect()}${faq()}
+      ${team()}${connect()}${faq()}
     </div>`;
     SeatMap($('#map'));
   }
@@ -286,7 +269,7 @@
     const h = location.hash.replace(/^#\/?/, '');
     document.body.classList.remove('menu-open');
     const [page, arg] = h.split('/');
-    const anchors = ['connect', 'faq', 'tiers', 'experiences', 'nights', 'seating', 'benefits', 'team', 'premium', 'offers', 'performances', 'hospitality'];
+    const anchors = ['connect', 'faq', 'tiers', 'experiences', 'nights', 'seating', 'benefits', 'team', 'performances', 'hospitality'];
     if (anchors.includes(page)) {
       if (!$('#benefits')) groupPage();
       setTimeout(() => {

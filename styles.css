@@ -63,7 +63,7 @@ img { max-width: 100%; }
 .band.alt { background: var(--bg-2); }
 .sec-title { font-family: var(--display); font-weight: 800; text-transform: uppercase; font-size: clamp(36px, 4.4vw, 54px); text-align: center; margin: 0 0 14px; letter-spacing: .02em; line-height: 1; }
 .sec-sub { text-align: center; max-width: 720px; margin: 0 auto 40px; color: var(--muted); line-height: 1.55; }
-.sec-title + .tiles, .sec-title + .benefits, .sec-title + .faq, .sec-title + .offers, .sec-title + .steps, .sec-title + .timeline { margin-top: 40px; }
+.sec-title + .tiles, .sec-title + .benefits, .sec-title + .faq, .sec-title + .steps, .sec-title + .timeline { margin-top: 40px; }
 .band .center:last-child { margin-top: 44px; }
 
 /* benefits */
@@ -74,7 +74,7 @@ img { max-width: 100%; }
 .bx .ic { width: 28px; height: 28px; stroke: var(--orange-d); }
 .benefit h3 { margin: 2px 0 6px; font-size: 15px; text-transform: uppercase; letter-spacing: .03em; }
 .benefit p { margin: 0; color: #d3d9e4; font-size: 14px; line-height: 1.5; }
-.ic, .ck, .fq, .mi, .mx, .club-ext { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.ic, .ck, .fq, .mi, .mx { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 
 /* tiers */
 .tier-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; align-items: end; margin: 46px 0 40px; }
@@ -128,23 +128,6 @@ img { max-width: 100%; }
 .chips button, .map-filters button { font: 500 13px var(--body); color: #dfe5ef; background: transparent; border: 1px solid rgba(255,255,255,.28); border-radius: 30px; padding: 8px 16px; cursor: pointer; transition: all .15s; }
 .chips button:hover, .map-filters button:hover { border-color: var(--orange); color: #fff; }
 .chips button.on, .map-filters button.on { background: var(--orange); border-color: var(--orange); color: #fff; }
-
-/* clubs */
-.clubs { display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px; margin: 10px 0 26px; }
-.club { position: relative; aspect-ratio: 1; border-radius: 14px; overflow: hidden; border: 1px solid rgba(255,255,255,.7); background-size: cover; background-position: center; text-decoration: none; display: flex; align-items: flex-end; transition: transform .25s, box-shadow .25s; }
-.club::before { content: ''; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(0,0,0,.75), rgba(0,0,0,.05) 60%); transition: background .25s; }
-.club:hover { transform: scale(1.03); box-shadow: 0 10px 30px rgba(0,0,0,.5); }
-.club:hover::before { background: linear-gradient(0deg, rgba(0,45,98,.85), rgba(0,45,98,.15) 70%); }
-.club span { position: relative; padding: 14px; font-weight: 700; text-transform: uppercase; font-size: 15px; line-height: 1.15; }
-.club-ext { position: absolute; top: 12px; right: 12px; width: 24px; height: 24px; color: #fff; }
-
-/* offers */
-.offers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
-.offer { border: 1px solid var(--line); border-top: 4px solid var(--orange); border-radius: 6px; padding: 26px; background: #111b30; display: flex; flex-direction: column; transition: transform .2s; }
-.offer:hover { transform: translateY(-4px); }
-.offer h3 { font-family: var(--display); font-weight: 800; font-size: 26px; text-transform: uppercase; margin: 0 0 10px; }
-.offer p { color: #d3d9e4; line-height: 1.55; font-size: 14px; margin: 0 0 20px; }
-.offer .pill { margin-top: auto; align-self: flex-start; }
 
 /* team */
 .team { display: grid; grid-template-columns: repeat(3, 1fr); gap: 46px 30px; margin-top: 10px; }
@@ -313,13 +296,12 @@ img { max-width: 100%; }
   .menu-open .dd ul { columns: 1; }
   .menu-open .dd a { color: #dfe6f2; padding: 10px 32px; }
   .menu-open .nav-right { display: flex; position: absolute; top: 74px; left: 20px; right: 20px; justify-content: space-between; z-index: 2; }
-  .clubs { grid-template-columns: repeat(3, 1fr); }
   .steps { grid-template-columns: repeat(2, 1fr); }
   .tier-steps { grid-template-columns: repeat(2, 1fr); align-items: stretch; }
   .tier { margin-top: 0; }
 }
 @media (max-width: 900px) {
-  .tiles, .offers, .team, .mlb-cards { grid-template-columns: repeat(2, 1fr); }
+  .tiles, .team, .mlb-cards { grid-template-columns: repeat(2, 1fr); }
   .map-wrap, .mlb-cols { grid-template-columns: 1fr; }
   .mlb-side { border-left: 0; border-top: 1px solid #e3e6eb; }
   .timeline { grid-template-columns: 1fr; border-top: 0; border-left: 3px solid var(--orange); }
@@ -331,8 +313,7 @@ img { max-width: 100%; }
   .w { padding: 0 16px; }
   .hero { min-height: 560px; }
   .hero-btns .pill { min-width: 0; width: 100%; }
-  .benefits, .tiles, .offers, .team, .form, .tier-steps, .steps, .mlb-cards, .gp-stats { grid-template-columns: 1fr; }
-  .clubs { grid-template-columns: repeat(2, 1fr); }
+  .benefits, .tiles, .team, .form, .tier-steps, .steps, .mlb-cards, .gp-stats { grid-template-columns: 1fr; }
   .mlb-bar { grid-template-columns: 1fr; }
   .mlb-title { font-size: 22px; }
   .gp-head { flex-direction: column; }

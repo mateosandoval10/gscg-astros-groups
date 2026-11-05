@@ -88,20 +88,6 @@ window.SITE = {
     { t: 'Center Field Group Areas', img: 'img/c-cf.jpg', ast: 'msv8qpqqsemnnezf9nxu', d: 'Open-air group spaces in center field with food and drink packages built in.', min: 40, max: null, note: 'Reserved by group' },
   ],
 
-  clubs: [
-    { t: 'Gallagher Club', img: 'img/k-gallagher.jpg', ast: 'utk2givpmh8ift4yn2es' },
-    { t: 'Six J Marketing Field Club', img: 'img/k-sixj.jpg', ast: 'gc5jrxu17dcbayqbbsgz' },
-    { t: 'Diamond Club', img: 'img/k-diamond.jpg', ast: 'yqxdzhg4esrikdbj14a4' },
-    { t: 'Insperity Club', img: 'img/k-insperity.jpg', ast: 'mx674fxcu1ocfmmizxsw' },
-    { t: 'Honda Club Level', img: 'img/k-honda.jpg' },
-  ],
-
-  offers: [
-    { t: 'Educators & First Responders', d: 'To thank Houston’s teachers, nurses, firefighters, police and military, verified heroes save on select games.', cta: 'View Offer' },
-    { t: 'Faith Leader Preview Night', d: 'Pastors and ministry leaders are invited to a game on us to experience the group program before bringing their congregation.', cta: 'Reserve a Spot' },
-    { t: 'Ticket Fundraiser', d: 'Sell Astros tickets for your cause through a custom link and keep a share of every sale.', cta: 'Start a Fundraiser' },
-  ],
-
   team: [
     { role: 'Faith & Family Groups', who: 'Churches, ministries, youth groups', i: 'faith' },
     { role: 'Hispanic Community Groups', who: 'Bilingual · Hablamos español', i: 'hispanic' },
