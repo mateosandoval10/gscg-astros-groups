@@ -24,7 +24,7 @@ window.SITE = {
     { key: 'single', name: 'Single', min: 15, blurb: 'Perfect for small teams, classrooms and ministries.',
       perks: ['Group pricing and seats together', 'Personal group link for easy sharing', 'Videoboard welcome'] },
     { key: 'double', name: 'Double', min: 50, blurb: 'Youth leagues, youth groups and school grades.',
-      perks: ['Everything in Single', 'Group leader gift bag', 'Fundraising return through Community Advantage'] },
+      perks: ['Everything in Single', 'Group leader gift bag', 'Fundraising return to your organization'] },
     { key: 'triple', name: 'Triple', min: 150, blurb: 'Congregations, schools and community partners.',
       perks: ['Everything in Double', 'Pregame on-field experience', 'On-field recognition moment'] },
     { key: 'hr', name: 'Home Run', min: 300, blurb: 'Your own night at Daikin Park.',
@@ -88,18 +88,6 @@ window.SITE = {
     { t: 'Center Field Group Areas', img: 'img/c-cf.jpg', ast: 'msv8qpqqsemnnezf9nxu', d: 'Open-air group spaces in center field with food and drink packages built in.', min: 40, max: null, note: 'Reserved by group' },
   ],
 
-  advantage: {
-    lead: 'Give your school, church, nonprofit or youth league members exclusive access to Astros games all season long, and raise money while you do it.',
-    why: [
-      ['Fundraising Built In', 'A share of every ticket your members buy goes back to your organization.'],
-      ['No Cost to Join', 'Community Advantage is free for your organization. Sign up once and use it all season.'],
-      ['Exclusive Offers', 'Members unlock group pricing on select games and specialty nights, without needing a group leader to collect money.'],
-      ['Unique Link & Code', 'Your organization gets its own link and code. Share it in an email, a bulletin, a text or a newsletter.'],
-      ['Automatic Reminders', 'We’ll remind your leader when it’s time to plan the next outing, so one great night turns into a tradition.'],
-    ],
-    ready: 'Join Community Advantage for free and turn every Astros outing into support for your cause.',
-  },
-
   clubs: [
     { t: 'Gallagher Club', img: 'img/k-gallagher.jpg', ast: 'utk2givpmh8ift4yn2es' },
     { t: 'Six J Marketing Field Club', img: 'img/k-sixj.jpg', ast: 'gc5jrxu17dcbayqbbsgz' },
@@ -127,7 +115,7 @@ window.SITE = {
     ['How many people do I need for group tickets?', 'Group pricing starts at 15 tickets. The bigger your group, the more experiences you unlock. See the group tiers above.'],
     ['Does everyone have to pay me up front?', 'No. Your representative sets up a personal group link. Each member buys their own seats, and everyone still sits together.'],
     ['Can my group sit together if people buy at different times?', 'Yes. Your seats are held as a block, and every purchase through your group link lands in that block.'],
-    ['How does the fundraising return work?', 'Through Community Advantage, a share of every ticket bought through your organization’s link goes back to your organization after the game.'],
+    ['How does the fundraising return work?', 'A share of every ticket bought through your organization’s link goes back to your organization after the game.'],
     ['Which experiences are available for my group?', 'It depends on your group size and the game you choose. Your representative will confirm what’s open for your date.'],
     ['Do you have a representative who speaks Spanish?', 'Yes. Our Hispanic Community Groups specialist works with groups in English and Spanish.'],
     ['How far in advance should I book?', 'Six to eight weeks is ideal, especially for weekends, fireworks nights and specialty nights, which sell out first.'],

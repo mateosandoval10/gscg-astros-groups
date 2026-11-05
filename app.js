@@ -89,18 +89,6 @@
     </div></section>`;
   }
 
-  function advantage() {
-    const A = S.advantage;
-    return `<section class="band" id="advantage"><div class="w narrow">
-      ${sectionTitle('Astros Community Advantage')}
-      <h4 class="adv-h">${icon('plus', 'circ')} Free to Join</h4><p class="adv-lead">${A.lead}</p>
-      <h4 class="adv-h">${icon('plus', 'circ')} Why Choose Community Advantage?</h4>
-      <div class="adv-list">${A.why.map(([b, t]) => `<p><b>${b}:</b> ${t}</p>`).join('')}</div>
-      <h4 class="adv-h">${icon('plus', 'circ')} Ready to Raise More for Your Cause?</h4><p class="adv-lead">${A.ready}</p>
-      ${reqBtn}
-    </div></section>`;
-  }
-
   function clubs() {
     return `<section class="band" id="premium"><div class="w">
       ${sectionTitle('Premium Groups & Club Spaces', 'Unlock premium group benefits and access to exclusive club spaces with upgraded food and drink when purchasing six or more tickets. These seats are among the best at Daikin Park.')}
@@ -192,7 +180,6 @@
         ${reqBtn}
       </div></section>
 
-      ${advantage()}
 
       <section class="band alt" id="seating"><div class="w">
         ${sectionTitle('Group Seating Locations', 'Groups can be seated anywhere in the ballpark, but the highlighted sections offer the greatest availability. Filter by your type of group, or click a section for details.')}
@@ -299,7 +286,7 @@
     const h = location.hash.replace(/^#\/?/, '');
     document.body.classList.remove('menu-open');
     const [page, arg] = h.split('/');
-    const anchors = ['connect', 'faq', 'tiers', 'experiences', 'nights', 'seating', 'benefits', 'team', 'premium', 'offers', 'advantage', 'performances', 'hospitality'];
+    const anchors = ['connect', 'faq', 'tiers', 'experiences', 'nights', 'seating', 'benefits', 'team', 'premium', 'offers', 'performances', 'hospitality'];
     if (anchors.includes(page)) {
       if (!$('#benefits')) groupPage();
       setTimeout(() => {
