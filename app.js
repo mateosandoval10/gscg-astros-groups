@@ -26,6 +26,9 @@
   const extLink = (label, href, cls = '') => `<a class="${cls}" href="${href}" target="_blank" rel="noopener">${label}</a>`;
 
   // ---------- header
+  // Astros photo layered over the local photo, so the local one shows if the CDN fails.
+  const bg = (x, size = 1024) => x.ast ? `url('https://img.mlbstatic.com/mlb-images/image/upload/t_16x9/t_w${size}/mlb/${x.ast}.jpg'), url('${x.img}')` : `url('${x.img}')`;
+
   function header() {
     const tix = S.tickets.map(t => {
       const href = t.internal || (t.external ? t.url : '#/tickets/' + t.slug);
@@ -50,7 +53,7 @@
     const meta = [x.min ? `Minimum purchase: ${x.min} tickets` : '', x.max ? `Maximum: ${x.max} participant${x.max > 1 ? 's' : ''}` : '', x.note || ''].filter(Boolean);
     const cta = kind === 'perf' ? 'Request Performance' : kind === 'night' ? 'Request This Night' : 'Request Experience';
     return `<article class="tile${x.c ? ' c-' + x.c : ''}" data-c="${x.c || ''}" tabindex="0">
-      <div class="tile-face" style="background-image:url('${x.img}')"><h3>${x.t}</h3>${x.c ? `<span class="tile-tag">${S.communities[x.c]}</span>` : ''}</div>
+      <div class="tile-face" style="background-image:${bg(x)}"><h3>${x.t}</h3>${x.c ? `<span class="tile-tag">${S.communities[x.c]}</span>` : ''}</div>
       <div class="tile-card"><h3>${x.t}</h3><hr><p>${x.d}</p>${meta.map(m => `<p class="tile-meta">${m}</p>`).join('')}
         <a class="pill dark sm" href="#/connect" data-prefill="${esc(x.t)}">${cta}</a></div>
     </article>`;
@@ -101,7 +104,7 @@
   function clubs() {
     return `<section class="band" id="premium"><div class="w">
       ${sectionTitle('Premium Groups & Club Spaces', 'Unlock premium group benefits and access to exclusive club spaces with upgraded food and drink when purchasing six or more tickets. These seats are among the best at Daikin Park.')}
-      <div class="clubs">${S.clubs.map(c => `<a class="club" href="https://www.mlb.com/astros/tickets/premium/suites" target="_blank" rel="noopener" style="background-image:url('${c.img}')">
+      <div class="clubs">${S.clubs.map(c => `<a class="club" href="https://www.mlb.com/astros/tickets/premium/suites" target="_blank" rel="noopener" style="background-image:${bg(c)}">
         ${icon('ext', 'club-ext')}<span>${c.t}</span></a>`).join('')}</div>
       <p class="center small">View all of our premium spaces ${extLink('here', 'https://www.mlb.com/astros/tickets/premium/suites', 'u')}.</p>
       ${reqBtn}
@@ -157,7 +160,7 @@
   function groupPage() {
     const B = S.benefits;
     app.innerHTML = `<div class="dark">
-      <section class="hero" style="background-image:url('${S.hero.img}')"><div class="w">
+      <section class="hero" style="background-image:${bg(S.hero, 2208)}"><div class="w">
         <h1>${S.hero.title.join('<br>')}</h1><p>${S.hero.text}</p>
         <div class="hero-btns">${pill('Request More Information', '#/connect')}${pill('Frequently Asked Questions', '#/faq')}${pill('Visit Group Leader Hub', '#/hub')}</div>
       </div></section>
@@ -218,14 +221,14 @@
     app.innerHTML = mlbShell('Inside Astros Tickets', '', `<p class="mlb-lead">Every way to get to Daikin Park, with the group program at the center.</p>
       <div class="mlb-cards">${S.tickets.map(t => { const href = t.internal || (t.external ? t.url : '#/tickets/' + t.slug);
         const img = t.img || (t.slug === 'group-tickets' ? 'img/hero.jpg' : t.slug === 'seating-map' ? 'img/stadium.jpg' : 'img/roof.jpg');
-        return `<a class="mlb-card" href="${href}" ${t.external ? 'target="_blank" rel="noopener"' : ''}><span style="background-image:url('${img}')"></span><b>${t.t}${t.external ? icon('ext', 'mx') : ''}</b></a>`; }).join('')}</div>`);
+        return `<a class="mlb-card" href="${href}" ${t.external ? 'target="_blank" rel="noopener"' : ''}><span style="background-image:${bg({ img, ast: t.ast || (t.slug === 'group-tickets' ? S.hero.ast : null) })}"></span><b>${t.t}${t.external ? icon('ext', 'mx') : ''}</b></a>`; }).join('')}</div>`);
   }
 
   function ticketPage(slug) {
     const t = S.tickets.find(x => x.slug === slug);
     if (!t || !t.d) return groupPage();
     app.innerHTML = mlbShell(`Houston Astros ${t.t}`, slug, `
-      <div class="mlb-hero" style="background-image:url('${t.img}')"></div>
+      <div class="mlb-hero" style="background-image:${bg(t, 2208)}"></div>
       <p class="mlb-lead">${t.d}</p>
       <div class="group-angle"><span>Group angle</span><p>${t.group}</p>${pill('Explore Group Tickets', '#/', 'sm')}</div>
       <p>${extLink(`See ${t.t} on astros.com ${icon('ext', 'mx')}`, t.url, 'u')}</p>`);
@@ -247,7 +250,7 @@
     const tierAt = n => [...S.tiers].reverse().find(t => n >= t.min) || S.tiers[0];
     const sold = 128, next = S.tiers.find(t => t.min > sold);
     app.innerHTML = `<div class="dark">
-      <section class="hero hub-hero" style="background-image:url('img/stadium.jpg')"><div class="w">
+      <section class="hero hub-hero" style="background-image:${bg({ img: 'img/stadium.jpg', ast: 'bwg0f6tw48rldumx7gbg' }, 2208)}"><div class="w">
         <h1>Group Leader<br>Hub</h1><p>Everything you need to plan, share and grow your group outing, all in one place. No spreadsheets and no collecting cash.</p>
         <div class="hero-btns">${pill('Start Planning', '#/connect')}${pill('Back to Group Tickets', '#/')}</div>
       </div></section>
@@ -286,7 +289,7 @@
 
   function credits() {
     fetch('img/credits.json').then(r => r.json()).then(c => {
-      app.innerHTML = mlbShell('Photo Credits', '', `<p class="mlb-lead">Photos are from Wikimedia Commons under the licenses below. The Astros logo is a trademark of the Houston Astros and is used here only to illustrate a student concept.</p>
+      app.innerHTML = mlbShell('Photo Credits', '', `<p class="mlb-lead">Featured photos of Daikin Park and Astros group outings are from the Houston Astros’ own group tickets pages on mlb.com and remain the property of the Houston Astros and MLB. Other photos are from Wikimedia Commons under the licenses below. The Astros logo is a trademark of the Houston Astros and is used here only to illustrate a student concept.</p>
         <ul class="credits">${Object.values(c).filter((v, i, a) => a.findIndex(x => x.file === v.file) === i).map(v => `<li>${extLink(esc(v.file.replace('File:', '')), v.page, 'u')} · ${esc(v.artist || 'Unknown')} · ${esc(v.license)}</li>`).join('')}</ul>`);
     });
   }

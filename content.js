@@ -1,11 +1,13 @@
 // All page copy lives here. Edit text, add experiences or nights, and the page rebuilds itself.
+// `ast` is an Astros photo id on img.mlbstatic.com (from the official group tickets pages).
+// It loads over the local `img` file, which stays as the fallback.
 window.SITE = {
   phone: '(713) 259-8030',
 
   hero: {
     title: ['Group Tickets', '& Experiences'],
     text: 'Astros games are better together. Bring your church, school, team or organization to Daikin Park, sit together, get recognized on the big screen, and add a once-in-a-lifetime experience to your outing. Book a group and save!',
-    img: 'img/hero.jpg',
+    img: 'img/hero.jpg', ast: 'j0rvq1nf0d3dkhoo1pnp',
   },
 
   benefits: [
@@ -42,7 +44,7 @@ window.SITE = {
   ],
 
   experiences: [
-    { t: 'Ceremonial First Pitch', img: 'img/x-firstpitch.jpg', d: 'Send one member of your group to the mound to throw out a ceremonial first pitch in front of the crowd.', min: 300, max: 1 },
+    { t: 'Ceremonial First Pitch', img: 'img/x-firstpitch.jpg', ast: 'hp4syzrjmuapd6rqnooi', d: 'Send one member of your group to the mound to throw out a ceremonial first pitch in front of the crowd.', min: 300, max: 1 },
     { t: 'Kids Run the Bases', img: 'img/x-runbases.jpg', d: 'After select games, the kids in your group run the bases at Daikin Park.', min: 50, max: 40 },
     { t: 'Starting Lineup', img: 'img/x-lineup.jpg', d: 'Young players stand with the Astros on the baseline during the national anthem.', min: 150, max: 9 },
     { t: 'Batting Practice View', img: 'img/x-bp.jpg', d: 'Watch the Astros take batting practice from the warning track before gates open.', min: 100, max: 30 },
@@ -52,7 +54,7 @@ window.SITE = {
     { t: 'Videoboard Welcome', img: 'img/x-videoboard.jpg', d: 'Your group’s name on the big screen, with a welcome read by the in-game host.', min: 15, max: null },
     { t: 'On-Field Recognition', img: 'img/x-recognition.jpg', d: 'Honor a state champion, a graduating class, volunteers or a leader on the field before first pitch.', min: 150, max: 20 },
     { t: 'Big Flag', img: 'img/x-flag.jpg', d: 'Help unfurl the giant American flag across the outfield during the national anthem.', min: 200, max: 60 },
-    { t: 'Color Guard', img: 'img/x-colorguard.jpg', d: 'Scouts, JROTC and service groups present the colors before the game.', min: 100, max: 6 },
+    { t: 'Color Guard', img: 'img/x-colorguard.jpg', ast: 'psesnjobuoosyxndpkem', d: 'Scouts, JROTC and service groups present the colors before the game.', min: 100, max: 6 },
     { t: 'Awareness Table', img: 'img/x-table.jpg', d: 'Host a concourse table to share your cause with thousands of fans.', min: 200, max: 4 },
   ],
 
@@ -62,27 +64,27 @@ window.SITE = {
     { t: 'Youth Group Night', c: 'faith', img: 'img/x-crawford.jpg', d: 'A youth-group outing planned with youth pastors: group seats, a postgame Run the Bases and a T-shirt bundle.', min: 50 },
     { t: 'Noche de Fiesta', c: 'hispanic', img: 'img/n-fiesta.jpg', d: 'A pregame plaza fiesta with mariachi, Spanish-language broadcast moments, a heritage jersey giveaway and family-priced concessions.', min: 50 },
     { t: 'Heritage Partner Night', c: 'hispanic', img: 'img/p-mariachi.jpg', d: 'Group packages sold through Hispanic-serving organizations, with on-field recognition for student leaders.', min: 150 },
-    { t: 'Youth Sports Night', c: 'youth', img: 'img/n-youth.jpg', d: 'Teams come in uniform, parade on the warning track and see their names on the videoboard. A share of every ticket goes back to the club.', min: 50 },
+    { t: 'Youth Sports Night', c: 'youth', img: 'img/n-youth.jpg', ast: 'c4s7zq4ivrgzzfjc9zsj', d: 'Teams come in uniform, parade on the warning track and see their names on the videoboard. A share of every ticket goes back to the club.', min: 50 },
     { t: 'Tournament Weekend', c: 'youth', img: 'img/g-classic.jpg', d: 'Group pricing for teams playing Houston tournaments, timed around their schedule.', min: 25 },
     { t: 'STEM Education Day', c: 'schools', img: 'img/n-stem.jpg', d: 'A ballpark tour and a STEM presentation on the science of baseball, followed by a day game.', min: 100 },
     { t: 'Scholarship Night', c: 'schools', img: 'img/n-scholar.jpg', d: 'Reserved blocks for STEAM scholarship schools, with winners recognized on the field.', min: 150 },
     { t: 'Class of 2027 Night', c: 'schools', img: 'img/n-grad.jpg', d: 'Graduates at every level celebrated together, with reserved sections for districts and colleges.', min: 100 },
     { t: 'Reading Rewards', c: 'schools', img: 'img/x-porch.jpg', d: 'Students earn tickets by hitting reading goals, and families come with them.', min: 50 },
-    { t: 'Nonprofit of the Night', c: 'nonprofits', img: 'img/n-nonprofit.jpg', d: 'An awareness table, an on-field moment and a fundraising return on every ticket your supporters buy.', min: 150 },
+    { t: 'Nonprofit of the Night', c: 'nonprofits', img: 'img/n-nonprofit.jpg', ast: 'f5upaao4j3lykdjbxyzf', d: 'An awareness table, an on-field moment and a fundraising return on every ticket your supporters buy.', min: 150 },
     { t: 'Healthcare Heroes Night', c: 'nonprofits', img: 'img/n-health.jpg', d: 'A night honoring Houston’s medical community, built with hospitals and the Texas Medical Center.', min: 150 },
   ],
 
   performances: [
-    { t: 'National Anthem', img: 'img/p-anthem.jpg', d: 'Perfect for a choir, school ensemble or soloist ready to lead 40,000 fans in the national anthem.', min: 100, max: 30 },
+    { t: 'National Anthem', img: 'img/p-anthem.jpg', ast: 'cfljz7vlizwhosno7ruc', d: 'Perfect for a choir, school ensemble or soloist ready to lead 40,000 fans in the national anthem.', min: 100, max: 30 },
     { t: 'God Bless America', img: 'img/p-choir.jpg', d: 'Lead the ballpark in “God Bless America” during the seventh-inning stretch.', min: 100, max: 40 },
     { t: 'Plaza Performance', img: 'img/p-mariachi.jpg', d: 'Mariachi, folklórico, dance teams and bands perform for fans on the plaza as gates open.', min: 75, max: 50 },
     { t: 'Drumline Pregame', img: 'img/p-band.jpg', d: 'School bands and drumlines bring the energy at the gates before first pitch.', min: 100, max: 60 },
   ],
 
   hospitality: [
-    { t: 'Suite Rentals', img: 'img/c-suite.jpg', d: 'A private suite with catering for your team, clients or leadership group.', min: null, max: null, note: 'Suites hold 20–60 guests' },
-    { t: 'Union Station Events', img: 'img/c-union.jpg', d: 'Host a pregame reception or banquet in the historic Union Station lobby.', min: null, max: null, note: 'Private event space' },
-    { t: 'Center Field Group Areas', img: 'img/c-cf.jpg', d: 'Open-air group spaces in center field with food and drink packages built in.', min: 40, max: null, note: 'Reserved by group' },
+    { t: 'Suite Rentals', img: 'img/c-suite.jpg', ast: 'y3fljtxnp9jc1nk4bf5o', d: 'A private suite with catering for your team, clients or leadership group.', min: null, max: null, note: 'Suites hold 20–60 guests' },
+    { t: 'Union Station Events', img: 'img/c-union.jpg', ast: 'sfmky8skps94rzn10azi', d: 'Host a pregame reception or banquet in the historic Union Station lobby.', min: null, max: null, note: 'Private event space' },
+    { t: 'Center Field Group Areas', img: 'img/c-cf.jpg', ast: 'msv8qpqqsemnnezf9nxu', d: 'Open-air group spaces in center field with food and drink packages built in.', min: 40, max: null, note: 'Reserved by group' },
   ],
 
   advantage: {
@@ -98,7 +100,7 @@ window.SITE = {
   },
 
   clubs: [
-    { t: 'Gallagher Club', img: 'img/k-gallagher.jpg' },
+    { t: 'Gallagher Club', img: 'img/k-gallagher.jpg', ast: 'utk2givpmh8ift4yn2es' },
     { t: 'Six J Marketing Field Club', img: 'img/k-sixj.jpg' },
     { t: 'Diamond Club', img: 'img/k-diamond.jpg' },
     { t: 'Insperity Club', img: 'img/k-insperity.jpg' },
@@ -134,7 +136,7 @@ window.SITE = {
   // Inside Astros Tickets: every item from the official ticket menu.
   // internal pages render in the MLB-style layout; external ones link out.
   tickets: [
-    { slug: 'season-tickets', t: 'Season Tickets', url: 'https://www.mlb.com/astros/tickets/season', img: 'img/stadium.jpg',
+    { slug: 'season-tickets', t: 'Season Tickets', url: 'https://www.mlb.com/astros/tickets/season', img: 'img/stadium.jpg', ast: 'bde3yis3xhggjjydt2qu',
       d: 'Full-season memberships for all 81 home games, with the best seat locations and member benefits.',
       group: 'Church and school leaders who bring groups every year can be invited to a member-style plan that renews their group night automatically.' },
     { slug: 'spring-training', t: 'Spring Training', url: 'https://www.mlb.com/astros/spring-training', img: 'img/x-bp.jpg',
@@ -144,7 +146,7 @@ window.SITE = {
       d: 'Information on postseason tickets and presale opportunities.',
       group: 'Group buyers get presale access to postseason tickets, which gives every group a reason to come back.' },
     { slug: 'group-tickets', t: 'Group Tickets', internal: '#/' },
-    { slug: 'premium-seats', t: 'Premium Seats', url: 'https://www.mlb.com/astros/tickets/premium/suites', img: 'img/k-diamond.jpg',
+    { slug: 'premium-seats', t: 'Premium Seats', url: 'https://www.mlb.com/astros/tickets/premium/suites', img: 'img/k-diamond.jpg', ast: 'i3yp290soa9f36igicgq',
       d: 'Daikin Park’s premium spaces include the Gallagher Club, Six J Marketing Field Club, Diamond Club, Insperity Club, season suites and nightly suites.',
       group: 'Premium groups of six or more can pair club access with a group experience.' },
     { slug: 'split-season', t: 'Split Season Tickets', url: 'https://www.mlb.com/astros/tickets/season-tickets/split', img: 'img/x-crawford.jpg',
@@ -153,7 +155,7 @@ window.SITE = {
     { slug: 'concerts', t: 'Concerts', url: 'https://www.mlb.com/astros/tickets/concerts', img: 'img/roof.jpg',
       d: 'Concerts and shows at Daikin Park.',
       group: 'Group pricing and seats together for youth groups, choirs and school music programs.' },
-    { slug: 'events', t: 'Events', url: 'https://www.mlb.com/astros/tickets/events', img: 'img/c-union.jpg',
+    { slug: 'events', t: 'Events', url: 'https://www.mlb.com/astros/tickets/events', img: 'img/c-union.jpg', ast: 'sfmky8skps94rzn10azi',
       d: 'Host a private event at Daikin Park, from banquets in Union Station to receptions on the field.',
       group: 'Pair a banquet or awards night with a group game ticket.' },
     { slug: 'light-up-the-park', t: 'Light Up The Park', url: 'https://www.mlb.com/astros/tickets/light-up-the-park', img: 'img/skyline.jpg',
