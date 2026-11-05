@@ -27,7 +27,7 @@
 
   // ---------- header
   // Astros photo layered over the local photo, so the local one shows if the CDN fails.
-  const bg = (x, size = 1024) => x.ast ? `url('https://img.mlbstatic.com/mlb-images/image/upload/t_16x9/t_w${size}/mlb/${x.ast}.jpg'), url('${x.img}')` : `url('${x.img}')`;
+  const bg = (x, size = 1024) => x.ast ? `url('${x.ast.startsWith('http') ? x.ast : `https://img.mlbstatic.com/mlb-images/image/upload/t_16x9/t_w${size}/mlb/${x.ast}.jpg`}'), url('${x.img}')` : `url('${x.img}')`;
 
   function header() {
     const tix = S.tickets.map(t => {
@@ -289,8 +289,8 @@
 
   function credits() {
     fetch('img/credits.json').then(r => r.json()).then(c => {
-      app.innerHTML = mlbShell('Photo Credits', '', `<p class="mlb-lead">Featured photos of Daikin Park and Astros group outings are from the Houston Astros’ own group tickets pages on mlb.com and remain the property of the Houston Astros and MLB. Other photos are from Wikimedia Commons under the licenses below. The Astros logo is a trademark of the Houston Astros and is used here only to illustrate a student concept.</p>
-        <ul class="credits">${Object.values(c).filter((v, i, a) => a.findIndex(x => x.file === v.file) === i).map(v => `<li>${extLink(esc(v.file.replace('File:', '')), v.page, 'u')} · ${esc(v.artist || 'Unknown')} · ${esc(v.license)}</li>`).join('')}</ul>`);
+      app.innerHTML = mlbShell('Photo Credits', '', `<p class="mlb-lead">Featured photos of Daikin Park and Astros group outings are from the Houston Astros’ own group tickets pages on mlb.com and remain the property of the Houston Astros and MLB. Community photos marked Unsplash are used under the Unsplash License. Other photos are from Wikimedia Commons under the licenses below. The Astros logo is a trademark of the Houston Astros and is used here only to illustrate a student concept.</p>
+        <ul class="credits">${S.unsplash.map(([t, p]) => `<li>${extLink(t, 'https://unsplash.com/photos/' + p, 'u')} · Unsplash License</li>`).join('')}${Object.values(c).filter((v, i, a) => a.findIndex(x => x.file === v.file) === i).map(v => `<li>${extLink(esc(v.file.replace('File:', '')), v.page, 'u')} · ${esc(v.artist || 'Unknown')} · ${esc(v.license)}</li>`).join('')}</ul>`);
     });
   }
 
