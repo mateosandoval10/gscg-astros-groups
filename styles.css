@@ -275,3 +275,57 @@ img { max-width: 100%; }
 }
 .gp-bar i:last-of-type b { transform: translateX(-100%); }
 .gp-bar i:first-of-type b { transform: none; }
+
+/* ---------- working draft additions */
+.hero .draft-note { margin-top: 26px; font-size: 13px; color: #ffb27c; letter-spacing: .04em; }
+.tbc { color: #ffb27c; font-style: italic; }
+.sub-title { font: 900 30px var(--display); text-transform: uppercase; margin: 64px 0 22px; }
+.day { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px; }
+.day-img { position: relative; aspect-ratio: 4/5; border-radius: 8px; background-size: cover; background-position: center; margin-bottom: 26px; box-shadow: 0 14px 34px rgba(0,0,0,.35); }
+.day-img .num { position: absolute; left: 14px; bottom: -18px; width: 40px; height: 40px; border-radius: 50%; background: var(--orange); color: #fff; font: 900 20px/40px var(--display); text-align: center; box-shadow: 0 0 0 4px var(--bg); }
+.day h3 { font-size: 16px; text-transform: uppercase; letter-spacing: .03em; margin: 0 0 6px; }
+.day p { font-size: 14px; color: #d3d9e4; line-height: 1.5; margin: 0; }
+.seat-wrap { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(260px, 1fr); gap: 26px; align-items: start; }
+.stadium { background: #fff; border-radius: 18px; overflow: hidden; }
+.stadium svg { width: 100%; height: auto; display: block; }
+.stadium .bg { fill: #eef2f7; } .stadium .concourse polygon { fill: #dde3ec; }
+.stadium .mow rect { fill: rgba(255,255,255,.055); } .stadium .track { fill: #b98657; } .stadium .dirt { fill: #c8935f; }
+.stadium .mound { stroke: rgba(255,255,255,.35); stroke-width: 1; } .stadium .infield-grass { fill: #3b8448; }
+.stadium .chalk { stroke: #fff; stroke-width: 2.2; } .stadium .base { fill: #fff; } .stadium .dugout { fill: #233047; } .stadium .pole { fill: #f4c430; }
+.stadium .rail { fill: none; stroke: #5b6474; stroke-width: 5; stroke-linecap: round; } .stadium .rail.ties { stroke: #eef2f7; stroke-width: 2; stroke-dasharray: 2 6; }
+.stadium .train rect { fill: #2a3346; } .stadium .train .lamp { fill: #ffd25a; }
+.stadium .zone { cursor: pointer; outline: none; }
+.stadium .zone polygon, .stadium .zone > rect:first-child { fill: var(--zc); stroke: #eef2f7; stroke-width: 1.6; transition: filter .2s, opacity .2s; }
+.stadium .zone:hover polygon, .stadium .zone:hover > rect:first-child { filter: brightness(1.15); }
+.stadium.has-sel .zone:not(.sel) polygon, .stadium.has-sel .zone:not(.sel) > rect:first-child { opacity: .45; }
+.stadium .zone.sel polygon, .stadium .zone.sel > rect:first-child { stroke: #fff; stroke-width: 2.4; filter: drop-shadow(0 0 6px rgba(235,110,31,.9)); }
+.stadium .station .win { fill: #f3d9a8; opacity: .85; pointer-events: none; }
+.stadium .zl { font: 800 17px var(--display); letter-spacing: .12em; text-anchor: middle; fill: var(--navy); pointer-events: none; }
+.stadium .zl.on-dark { fill: #fff; } .stadium .zl.sm { font-size: 13px; letter-spacing: .1em; }
+.stadium .zl.field { font-size: 30px; fill: rgba(255,255,255,.16); letter-spacing: .3em; }
+.stadium .note { font: 500 12px var(--body); fill: #8a95a6; text-anchor: middle; }
+.seat-panel { position: sticky; top: 84px; background: #111b30; border: 1px solid var(--line); border-radius: 12px; padding: 26px; }
+.seat-panel h3 { font: 900 38px/1 var(--display); text-transform: uppercase; margin: 0 0 16px; }
+.seat-panel p { color: #d3d9e4; }
+.seat-panel dl { display: grid; grid-template-columns: 90px 1fr; gap: 8px 12px; margin: 0 0 22px; font-size: 15px; }
+.seat-panel dt { color: var(--muted); } .seat-panel dd { margin: 0; }
+.sw { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 8px; vertical-align: -1px; }
+.start { background: linear-gradient(135deg, #001e44, #0a3a75) !important; }
+.start-grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: 48px; align-items: start; }
+.iform { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 16px; background: rgba(255,255,255,.06); border: 1px solid var(--line); border-radius: 14px; padding: 26px; }
+.iform label { display: grid; gap: 6px; font-size: 13px; font-weight: 500; color: #c9d3e6; }
+.iform input, .iform select { font: 400 16px var(--body); padding: 13px; border-radius: 8px; border: 1px solid rgba(255,255,255,.2); background: rgba(255,255,255,.07); color: #fff; }
+.iform select option { color: #222; }
+.iform input:focus, .iform select:focus { outline: 2px solid var(--orange); outline-offset: 1px; }
+.form-foot { grid-column: 1 / -1; display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+.form-foot .note { font-size: 13px; color: var(--muted); }
+.contacts { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; }
+.contact { background: #111b30; border: 1px solid var(--line); border-radius: 12px; padding: 24px; }
+.contact h3 { font: 900 26px var(--display); text-transform: uppercase; margin: 0 0 8px; }
+.contact p { color: #d3d9e4; margin: 0; }
+@media (max-width: 900px) {
+  .day { grid-template-columns: repeat(2, 1fr); }
+  .seat-wrap, .start-grid { grid-template-columns: 1fr; }
+  .seat-panel { position: static; }
+}
+@media (max-width: 560px) { .iform { grid-template-columns: 1fr; } .day { grid-template-columns: 1fr; } }

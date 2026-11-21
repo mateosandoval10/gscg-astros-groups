@@ -3,42 +3,56 @@
 // It loads over the local `img` file, which stays as the fallback.
 const U = id => `https://images.unsplash.com/photo-${id}?w=1200&q=75&fm=jpg&fit=crop`;
 window.SITE = {
+  // Bump this every night after adding the team's changes.
+  draft: { n: 1, date: 'November 21, 2026' },
+
   hero: {
-    kicker: 'GSCG mock-up · Midpoint recap',
-    title: ['Group Tickets,', 'Reimagined'],
-    text: 'A mock-up of what our final deliverable could look like. Each section below is one of the ideas from today, shown the way a Houston church, school, team or nonprofit would actually experience it.',
+    kicker: 'Group tickets at Daikin Park',
+    title: ['Bring Your Group', 'to Daikin Park'],
+    text: 'Schools, churches, teams, nonprofits, companies and families. From a youth team of 20 to a whole school district, plan a day at the ballpark your group will remember.',
     img: 'img/hero.jpg', ast: 'j0rvq1nf0d3dkhoo1pnp',
   },
 
+  // Sections on the page, in order. These are the parts we agreed the site must have.
+  sections: [
+    { id: 'day', nav: 'A Day at the Park' },
+    { id: 'tiers', nav: 'Tiers & Pricing' },
+    { id: 'seating', nav: 'Seating' },
+    { id: 'nights', nav: 'Theme Nights' },
+    { id: 'start', nav: 'Get Started' },
+    { id: 'contact', nav: 'Contact' },
+  ],
+
+  day: [
+    ['Arrive together', 'Meet your group at historic Union Station, the ballpark’s front door.', 'img/c-union.jpg'],
+    ['Get welcomed', 'Your group’s name on the videoboard. To confirm.', 'img/x-videoboard.jpg'],
+    ['Play ball', 'Your whole group seated together for first pitch.', 'img/x-lineup.jpg'],
+    ['Make it yours', 'Add a moment on the field, from a team photo to a first pitch.', 'img/x-firstpitch.jpg'],
+    ['Take it home', 'Photos and memories from a day at the ballpark.', 'img/skyline.jpg'],
+  ],
+
+  pricing: 'Ticket prices follow the Astros’ six game tiers, so groups can pick a date that fits their budget. Game tiers and prices: To confirm with the Astros.',
+
+  seating: [
+    { id: 'fieldbox', good: 'Groups who want to be close to the action' },
+    { id: 'mezzanine', good: 'Mid-size groups' },
+    { id: 'viewdeck', good: 'Large school and church groups on a budget' },
+    { id: 'crawfordboxes', good: 'Groups who want to catch home runs in left field' },
+    { id: 'outfielddecki', good: 'Casual groups and teams' },
+    { id: 'outfielddeckii', good: 'Very large groups' },
+    { id: 'bullpen', good: 'Groups who want to watch pitchers warm up' },
+    { id: 'unionstation', good: 'Meeting your group before the game' },
+  ],
+
+  formFields: ['Your name', 'Organization', 'Group type', 'Group size', 'Preferred date or theme night', 'Email', 'Phone', 'Preferred language'],
+
+  contact: [
+    ['Astros Group Sales', 'Questions about group tickets. Email and phone: To add from the Astros.'],
+    ['Grupos en Español', 'Group planning in Spanish, including WhatsApp. To confirm.'],
+  ],
+
   communities: { faith: 'Church Groups', hispanic: 'Hispanic Community', youth: 'Youth Sports', schools: 'Schools', nonprofits: 'Nonprofits' },
 
-  // The ideas, in the order the page shows them. `c` colors the audience tag; 'all' means every group.
-  ideas: [
-    { id: 'tiers', c: 'all', nav: 'Tiers', t: 'Group Tiers',
-      what: 'Four levels, from Single to Home Run. Every level adds a bigger moment at the ballpark.',
-      why: 'Gives every group a reason to recruit a few more people, and a reason to come back bigger next year.' },
-    { id: 'nights', c: 'all', nav: 'Nights', t: 'Specialty Group Nights',
-      what: 'A night built for each of the five communities, from a partner church night to Youth Sports Night.',
-      why: 'Turns one-off theme nights into a calendar that every community can plan around.' },
-    { id: 'fundraising', c: 'schools', nav: 'Fundraising', t: 'Group Fundraising',
-      what: 'Schools raise $5 for every $15 in tickets sold through their own custom link.',
-      why: 'Schools are far more likely to buy when the outing also raises money for them.' },
-    { id: 'field-trips', c: 'schools', nav: 'Field Trips', t: 'Field Trip + Game Packages',
-      what: 'Bundle the ballpark tours schools already book with a game ticket on the same day.',
-      why: 'Schools already coming for tours become group ticket buyers, with no new outreach needed.' },
-    { id: 'espanol', c: 'hispanic', nav: 'En Español', t: 'Astros en Español',
-      what: 'A year-round Spanish-language channel and bilingual group invites.',
-      why: 'Builds a connection with Hispanic fans that lasts beyond one heritage weekend.' },
-    { id: 'charity', c: 'nonprofits', nav: 'Charity Drive', t: 'Charity Drive Night',
-      what: 'Fans donate food or clothes at the gate and get $1 off a hot dog. The nonprofit gets the spotlight.',
-      why: 'An easy incentive for fans, and a real platform for the nonprofit and its volunteers.' },
-    { id: 'experiences', c: 'all', nav: 'Experiences', t: 'Experiences & Recognition',
-      what: 'Group-only moments, from teams in uniform on the warning track to a choir singing the anthem.',
-      why: 'Recognition is what groups remember and share, and it costs the Astros very little.' },
-    { id: 'outreach', c: 'all', nav: 'Outreach', t: 'One Link, Personal Outreach',
-      what: 'Every organization gets its own page and link, plus ready-to-send messages for its members.',
-      why: 'The leader shares one link and members pay on their own. This is where the second half begins.' },
-  ],
 
   tiers: [
     { key: 'single', name: 'Single', min: 15, blurb: 'Perfect for small teams, classrooms and ministries.',
@@ -66,30 +80,6 @@ window.SITE = {
     { t: 'Reading Rewards', c: 'nonprofits', img: 'img/x-porch.jpg', ast: U('1599689868384-59cb2b01bb21'), d: 'Kids in nonprofit programs log reading hours to earn tickets, and their families come with them.', min: 50 },
   ],
 
-  fundraising: { price: 15, back: 5, min: 15, max: 600, start: 180 },
-
-  fieldTrip: {
-    day: [
-      ['9:30 AM', 'Ballpark tour', 'The educational and STEM tour schools already book today.'],
-      ['10:45 AM', 'Science of baseball', 'A short classroom-style session on the physics of pitching and hitting.'],
-      ['11:45 AM', 'Lunch together', 'Students eat as a group in a reserved area.'],
-      ['1:10 PM', 'Day game', 'The whole school sits together, with a videoboard welcome.'],
-    ],
-    proof: ['20,000+', 'students a year at the Kansas City Royals’ School Day, which has run for more than 25 years', 'https://www.mlb.com/royals/tickets/specials/school-day'],
-  },
-
-  espanol: [
-    { k: 'Group invite', en: 'Bring your group to Noche de Fiesta! Seats together, mariachi on the plaza and a limited-edition heritage jersey.', es: '¡Trae a tu grupo a la Noche de Fiesta! Asientos juntos, mariachi en la plaza y un jersey de herencia de edición limitada.' },
-    { k: 'Scholarship spotlight', en: 'Congratulations to this year’s scholarship winners, recognized on the field tonight.', es: 'Felicidades a los ganadores de las becas de este año, reconocidos hoy en el campo.' },
-    { k: 'Meet your rep', en: 'Planning a group outing? Talk to our bilingual group specialist.', es: '¿Planeas una salida en grupo? Habla con nuestro especialista bilingüe.' },
-  ],
-
-  charity: [
-    ['Bring a donation', 'Fans bring canned food or gently used clothes for the night’s partner nonprofit.'],
-    ['Get a coupon', 'Every donation at the gate earns $1 off a hot dog inside.'],
-    ['Spotlight the cause', 'The nonprofit gets a concourse table, a videoboard feature and an on-field thank-you for its volunteers.'],
-  ],
-
   experiences: [
     { t: 'Ceremonial First Pitch', img: 'img/x-firstpitch.jpg', ast: 'hp4syzrjmuapd6rqnooi', d: 'Send one member of your group to the mound to throw out a ceremonial first pitch.', min: 300 },
     { t: 'Kids Run the Bases', img: 'img/x-runbases.jpg', ast: U('1508802493048-bf55245a557b'), d: 'After select games, the kids in your group run the bases at Daikin Park.', min: 50 },
@@ -101,8 +91,6 @@ window.SITE = {
     { t: 'Plaza Performance', img: 'img/p-mariachi.jpg', ast: U('1600466892203-d84aae0aa4c1'), d: 'Mariachi, folklórico, dance teams and bands perform on the plaza as gates open.', min: 75 },
     { t: 'Drumline Pregame', img: 'img/p-band.jpg', ast: U('1616382519098-57806dfc551a'), d: 'School bands and drumlines bring the energy at the gates before first pitch.', min: 100 },
   ],
-
-  next: ['Automated, personal outreach', 'A tailored pitch for each community', 'Designs and templates', 'The final group website'],
 
   // Unsplash photos (Unsplash License), shown on the Photo Credits page.
   unsplash: [

@@ -24,9 +24,9 @@
   function header() {
     $('#nav').innerHTML = `
       <a class="logo" href="#/" aria-label="Back to the top"><img src="img/astros.png" alt=""></a>
-      <span class="mock-badge">Mock-up</span>
+      <span class="mock-badge">Draft ${S.draft.n}</span>
       <button class="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
-      <ul class="nav-main">${S.ideas.map((x, i) => `<li><a href="#/${x.id}"><i>${i + 1}</i>${x.nav}</a></li>`).join('')}</ul>`;
+      <ul class="nav-main">${S.sections.map(x => `<li><a href="#/${x.id}">${x.nav}</a></li>`).join('')}</ul>`;
     $('.burger').addEventListener('click', e => {
       const open = document.body.classList.toggle('menu-open'); e.currentTarget.setAttribute('aria-expanded', open);
     });
@@ -34,15 +34,6 @@
 
   // ---------- reusable blocks
   const sectionTitle = (t, sub) => `<h2 class="sec-title">${t}</h2>${sub ? `<p class="sec-sub">${sub}</p>` : ''}`;
-  // Every idea section opens with its number, audience, and the idea in one line plus why it works.
-  function ideaHead(id) {
-    const i = S.ideas.findIndex(x => x.id === id), x = S.ideas[i];
-    return `<div class="idea-head">
-      <span class="idea-k c-${x.c}">Idea ${String(i + 1).padStart(2, '0')} · ${who(x.c)}</span>
-      <h2 class="sec-title">${x.t}</h2>
-      <div class="idea-why"><div><b>The idea</b><p>${x.what}</p></div><div><b>Why it works</b><p>${x.why}</p></div></div>
-    </div>`;
-  }
   const inPractice = t => `<p class="in-practice"><span>In practice</span>${t}</p>`;
 
   function tile(x) {
@@ -54,18 +45,21 @@
   }
   const grid = items => `<div class="tiles">${items.map(tile).join('')}</div>`;
 
-  function overview() {
-    return `<section class="band" id="ideas"><div class="w">
-      ${sectionTitle('The Ideas, In Practice', 'Eight ideas from our research, each shown as a group leader would see it. Click any idea to jump to it.')}
-      <div class="ov">${S.ideas.map((x, i) => `<a class="ov-card c-${x.c}" href="#/${x.id}">
-        <span class="ov-n">${String(i + 1).padStart(2, '0')}</span><span class="ov-who">${who(x.c)}</span>
-        <b>${x.t}</b><p>${x.what}</p><span class="ov-go">See it ${icon('arrow', 'ar')}</span></a>`).join('')}</div>
+  const head = (k, t, sub) => `<span class="idea-k">${k}</span>${sectionTitle(t, sub)}`;
+
+  function dayBlock() {
+    return `<section class="band" id="day"><div class="w">
+      ${head('Visuals', 'A Day at the Park', 'What a group outing looks like, from the moment you arrive.')}
+      <ol class="day">${S.day.map(([h, p, img], i) => `<li><div class="day-img" style="background-image:url('${img}')"><span class="num">${i + 1}</span></div><h3>${h}</h3><p>${p}</p></li>`).join('')}</ol>
+      <h3 class="sub-title">Moments for your group</h3>
+      ${grid(S.experiences)}
+      <p class="hint">Hover or tap a moment to see what it includes.</p>
     </div></section>`;
   }
 
   function tiersBlock() {
     return `<section class="band alt" id="tiers"><div class="w">
-      ${ideaHead('tiers')}
+      ${head('Tiers & pricing', 'The More You Bring, The More You Get', S.pricing)}
       <div class="tier-steps">
         ${S.tiers.map((t, i) => `<div class="tier t-${t.key}" style="--h:${i}">
           <div class="tier-top"><div class="bases">${[0, 1, 2, 3].map(b => `<i class="${b <= i ? 'on' : ''}"></i>`).join('')}</div>
@@ -73,116 +67,48 @@
           <ul>${t.perks.map(p => `<li>${icon('check', 'ck')}${p}</li>`).join('')}</ul>
         </div>`).join('')}
       </div>
-      ${inPractice('A youth league with 40 players sees that 10 more tickets moves them to Double, which adds a fundraising return. That’s the nudge to invite siblings and grandparents.')}
+      <p class="hint">Group tiers are a GSCG proposal. Perks: To confirm with the Astros.</p>
     </div></section>`;
   }
 
+  function seatingBlock() {
+    return `<section class="band" id="seating"><div class="w">
+      ${head('Seating', 'Find Your Group’s Seats', 'Tap any area of the ballpark to see who it is good for. Prices and availability: To confirm.')}
+      <div class="seat-wrap"><div class="stadium" id="stadium"></div><aside class="seat-panel" id="seat-panel" aria-live="polite"></aside></div>
+    </div></section>`;
+  }
+  function showZone(id) {
+    const panel = $('#seat-panel'); if (!panel) return;
+    if (!id) { panel.innerHTML = '<span class="idea-k">Seating</span><h3>Pick an area</h3><p>Tap any part of the ballpark to see who it is good for.</p>'; return; }
+    const z = window.STADIUM_ZONES.find(z => z.id === id), info = S.seating.find(s => s.id === id) || {};
+    panel.innerHTML = `<span class="idea-k"><i class="sw" style="background:${z.color}"></i>Seating area</span><h3>${z.name}</h3>
+      <dl><dt>Good for</dt><dd>${info.good || 'To confirm'}</dd><dt>From</dt><dd class="tbc">To confirm</dd></dl>${pill('Start your group outing', '#/start')}`;
+  }
+
   function nightsBlock() {
-    return `<section class="band" id="nights"><div class="w">
-      ${ideaHead('nights')}
+    return `<section class="band alt" id="nights"><div class="w">
+      ${head('Schedule', 'Theme Nights', 'Build your outing around a night made for your group. 2027 dates: To confirm.')}
       <div class="chips" role="toolbar">${[['all', 'All Nights'], ...Object.entries(S.communities)].map(([k, l], i) => `<button data-c="${k}" class="${i ? '' : 'on'}">${l}</button>`).join('')}</div>
       ${grid(S.nights)}
       <p class="hint">Hover or tap a night to see what it includes.</p>
     </div></section>`;
   }
 
-  function fundraisingBlock() {
-    const F = S.fundraising;
-    return `<section class="band alt" id="fundraising"><div class="w">
-      ${ideaHead('fundraising')}
-      <div class="calc">
-        <div class="calc-in">
-          <label>School or organization<input id="f-org" value="Lincoln Elementary" maxlength="40" autocomplete="off"></label>
-          <label>Tickets sold through your link <output id="f-n">${F.start}</output><input id="f-range" type="range" min="${F.min}" max="${F.max}" step="5" value="${F.start}"></label>
-          <p class="calc-note">Assumes a $${F.price} group ticket, with $${F.back} of every $${F.price} going back to the school. Nothing you type here is sent or stored.</p>
-        </div>
-        <div class="calc-out">
-          <span class="eyebrow">Raised for your school</span>
-          <b id="f-raised" class="big"></b>
-          <div class="calc-row"><span>Tier reached</span><b id="f-tier"></b></div>
-          <div class="calc-row"><span>Your custom link</span><b id="f-link" class="mono"></b></div>
-          <p id="f-next" class="calc-next"></p>
-        </div>
-      </div>
-    </div></section>`;
-  }
-  function updateCalc() {
-    const r = $('#f-range'); if (!r) return;
-    const F = S.fundraising, n = +r.value, t = tierAt(n), nx = S.tiers.find(x => x.min > n);
-    const slug = ($('#f-org').value.trim() || 'your-school').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-    $('#f-n').textContent = n;
-    $('#f-raised').textContent = money(n * F.back);
-    $('#f-tier').textContent = t.name;
-    $('#f-link').textContent = 'astros.com/groups/' + slug;
-    $('#f-next').innerHTML = nx ? `<b>${nx.min - n} more tickets</b> reaches ${nx.name}: ${nx.perks[nx.perks.length - 1].toLowerCase()}.` : 'Top tier reached: your school gets its own night.';
-  }
-
-  function fieldTripBlock() {
-    const T = S.fieldTrip;
-    return `<section class="band" id="field-trips"><div class="w">
-      ${ideaHead('field-trips')}
-      <div class="ft">
-        <div class="ft-photos"><span style="background-image:${bg({ img: 'img/g-train.jpg', ast: 'z5lzrwl0w55wkp1jflmt' })}"></span><span style="background-image:${bg({ img: 'img/n-stem.jpg', ast: 'rwavfry1jjxkcm8pqf7c' })}"></span></div>
-        <div>
-          <span class="eyebrow">A sample school day</span>
-          <ol class="ft-day">${T.day.map(([h, t, d]) => `<li><time>${h}</time><div><b>${t}</b><p>${d}</p></div></li>`).join('')}</ol>
-          <div class="proof"><b>${T.proof[0]}</b><p>${T.proof[1]}. ${extLink(`Source ${icon('ext', 'mx')}`, T.proof[2], 'u')}</p></div>
-        </div>
-      </div>
+  function startBlock() {
+    return `<section class="band start" id="start"><div class="w">
+      <div class="start-grid"><div>${head('Interest form', 'Start Your Group Outing', 'Tell us about your group and a group sales rep will follow up to get the ball rolling.')}</div>
+      <form class="iform" novalidate>${S.formFields.map(q => /group type/i.test(q)
+        ? `<label>${q}<select><option>Choose one</option>${Object.values(S.communities).concat(['Company', 'Family and friends', 'Other']).map(o => `<option>${o}</option>`).join('')}</select></label>`
+        : /language/i.test(q) ? `<label>${q}<select><option>English</option><option>Español</option></select></label>`
+        : `<label>${q}<input type="${/email/i.test(q) ? 'email' : /size/i.test(q) ? 'number' : 'text'}"></label>`).join('')}
+        <div class="form-foot"><button class="pill" type="submit">Send</button><span class="note">Demo form: nothing is collected or sent.</span></div></form></div>
     </div></section>`;
   }
 
-  function espanolBlock() {
-    return `<section class="band alt" id="espanol"><div class="w">
-      ${ideaHead('espanol')}
-      <div class="lang" role="tablist"><button data-lang="es" class="on">Español</button><button data-lang="en">English</button></div>
-      <div class="posts">${S.espanol.map(p => `<article class="post">
-        <div class="post-h"><img src="img/astros.png" alt=""><div><b>Astros en Español</b><span>Concept channel</span></div></div>
-        <span class="post-k">${p.k}</span><p data-es="${esc(p.es)}" data-en="${esc(p.en)}">${p.es}</p>
-      </article>`).join('')}</div>
-      ${inPractice('The same group invite goes out in both languages, and the Hispanic Community nights get promoted all season, not just during heritage weekend.')}
-    </div></section>`;
-  }
-
-  function charityBlock() {
-    return `<section class="band" id="charity"><div class="w">
-      ${ideaHead('charity')}
-      <div class="cd">
-        <ol class="cd-steps">${S.charity.map(([h, p], i) => `<li><span class="num">${i + 1}</span><h3>${h}</h3><p>${p}</p></li>`).join('')}</ol>
-        <div class="coupon"><span>Charity Drive Night</span><b>$1 OFF</b><em>one hot dog</em><small>Thanks for your donation to tonight’s partner nonprofit</small></div>
-      </div>
-    </div></section>`;
-  }
-
-  function experiencesBlock() {
-    return `<section class="band alt" id="experiences"><div class="w">
-      ${ideaHead('experiences')}
-      ${grid(S.experiences)}
-      <p class="hint">Each experience unlocks at a tier, so the tiers and the experiences sell each other.</p>
-    </div></section>`;
-  }
-
-  function outreachBlock() {
-    const sold = 128, next = S.tiers.find(t => t.min > sold);
-    return `<section class="band" id="outreach"><div class="w">
-      ${ideaHead('outreach')}
-      <div class="gp">
-        <div class="gp-head"><div><span class="eyebrow">Sample group page</span><h3>Grace Community Church · Faith & Family Feast Night</h3></div><span class="gp-tier">${tierAt(sold).name} tier</span></div>
-        <div class="gp-bar"><div style="width:${Math.min(100, sold / 300 * 100)}%"></div>${S.tiers.map(t => `<i style="left:${t.min / 300 * 100}%"><b>${t.name}</b></i>`).join('')}</div>
-        <div class="gp-stats"><div><b>${sold}</b><span>tickets sold</span></div><div><b>${next.min - sold}</b><span>to reach ${next.name}</span></div><div><b>14</b><span>days to game</span></div></div>
-        <div class="gp-link"><span>astros.com/groups/grace-community</span><button class="pill sm dark" data-copy="astros.com/groups/grace-community">Copy Link</button></div>
-      </div>
-      <div class="center hub-cta">${pill('See the full Group Leader Hub', '#/hub')}</div>
-    </div></section>`;
-  }
-
-  function nextBlock() {
-    return `<section class="band next" id="next"><div class="w narrow center">
-      <span class="eyebrow">Coming in the second half</span>
-      <h2 class="sec-title">From Mock-up to Final Deliverable</h2>
-      <p class="sec-sub">This page is one idea of what the finished product could look like. Next, we’ll build the pieces that bring groups to it.</p>
-      <ul class="next-list">${S.next.map(n => `<li>${icon('check', 'ck')}${n}</li>`).join('')}</ul>
-      <p class="ask">Which of these ideas resonate most with your team?</p>
+  function contactBlock() {
+    return `<section class="band alt" id="contact"><div class="w">
+      ${head('Contact', 'Questions? Talk to Us')}
+      <div class="contacts">${S.contact.map(([h, p]) => `<div class="contact"><h3>${h}</h3><p>${p.replace(/(To (confirm|add)[^.]*\.)/g, '<span class="tbc">$1</span>')}</p></div>`).join('')}</div>
     </div></section>`;
   }
 
@@ -192,47 +118,13 @@
       <section class="hero" style="background-image:${bg(S.hero, 2208)}"><div class="w">
         <span class="hero-k">${S.hero.kicker}</span>
         <h1>${S.hero.title.join('<br>')}</h1><p>${S.hero.text}</p>
-        <div class="hero-btns">${pill('Explore the Ideas', '#/ideas')}${pill('Group Leader Hub', '#/hub', 'ghost')}</div>
+        <div class="hero-btns">${pill('Start Your Group Outing', '#/start')}${pill('Explore Seating', '#/seating', 'ghost')}</div>
+        <p class="draft-note">Draft ${S.draft.n} · updated ${S.draft.date}</p>
       </div></section>
-      ${overview()}${tiersBlock()}${nightsBlock()}${fundraisingBlock()}${fieldTripBlock()}${espanolBlock()}${charityBlock()}${experiencesBlock()}${outreachBlock()}${nextBlock()}
+      ${dayBlock()}${tiersBlock()}${seatingBlock()}${nightsBlock()}${startBlock()}${contactBlock()}
     </div>`;
-    updateCalc();
-  }
-
-  function hubPage() {
-    const steps = [
-      ['Pick your game & experience', 'Choose a date, a specialty night or a fan experience. Your rep suggests a few that fit your group.'],
-      ['Get your group link', 'A personal group page and link for your organization, with your seats held together.'],
-      ['Share it with your group', 'Send the link by email, text, bulletin or newsletter. Each member buys their own seats.'],
-      ['Watch your group grow', 'Track sales in real time and see how close you are to the next tier.'],
-      ['Enjoy game day', 'Arrive early for your experience, and look for your group’s name on the videoboard.'],
-    ];
-    app.innerHTML = `<div class="dark">
-      <section class="hero hub-hero" style="background-image:${bg({ img: 'img/stadium.jpg', ast: 'bde3yis3xhggjjydt2qu' }, 2208)}"><div class="w">
-        <span class="hero-k">Idea 08 · Mock-up</span>
-        <h1>Group Leader<br>Hub</h1><p>Everything a group leader needs to plan, share and grow an outing, in one place. No spreadsheets and no collecting cash.</p>
-        <div class="hero-btns">${pill('Back to the Ideas', '#/outreach')}</div>
-      </div></section>
-      <section class="band"><div class="w">
-        ${sectionTitle('How It Works')}
-        <ol class="steps">${steps.map(([h, p], i) => `<li><span class="num">${i + 1}</span><h3>${h}</h3><p>${p}</p></li>`).join('')}</ol>
-      </div></section>
-      <section class="band alt"><div class="w">
-        ${sectionTitle('Ready-to-Send Messages', 'Copy, personalize and send. Every message includes the group link.')}
-        <div class="tmpl">
-          ${[['Email', 'Join us at Daikin Park!', 'Hi everyone,\n\nWe’re heading to an Astros game together on [date] for [night]! Our group sits together, and we’ll be welcomed on the videoboard.\n\nGrab your tickets here: [group link]\n\nSee you at the ballpark!'],
-            ['Text', null, 'We’re going to the Astros game on [date]! Sit with our group and get your tickets here: [group link]'],
-            ['Bulletin', null, 'ASTROS FELLOWSHIP NIGHT · Join the [church name] family at Daikin Park on [date]. Get tickets at [group link].'],
-            ['Español', null, '¡Vamos juntos al juego de los Astros el [fecha]! Compra tus boletos aquí: [enlace del grupo]']]
-            .map(([k, subj, body]) => `<div class="tm"><div class="tm-h"><b>${k}</b><button class="pill sm" data-copy="${esc((subj ? 'Subject: ' + subj + '\n\n' : '') + body)}">Copy</button></div>${subj ? `<p class="tm-s">Subject: ${subj}</p>` : ''}<pre>${esc(body)}</pre></div>`).join('')}
-        </div>
-      </div></section>
-      <section class="band"><div class="w">
-        ${sectionTitle('Planning Timeline')}
-        <div class="timeline">${[['8 weeks out', 'Pick a date and experience, and get your group link.'], ['6 weeks out', 'Announce it: email, bulletin, text and social.'], ['3 weeks out', 'Send a reminder. Your page shows who still needs tickets.'], ['1 week out', 'Confirm your experience details and arrival time.'], ['Game day', 'Arrive early, check in and enjoy your moment.']]
-          .map(([w, d]) => `<div><b>${w}</b><p>${d}</p></div>`).join('')}</div>
-      </div></section>
-    </div>`;
+    if (window.renderStadium) { window.renderStadium($('#stadium'), { onSelect: showZone }); showZone(null); }
+    $('.iform').addEventListener('submit', e => { e.preventDefault(); e.target.querySelector('.note').textContent = 'Demo only: nothing was sent.'; });
   }
 
   function credits() {
@@ -249,8 +141,8 @@
   function route() {
     const page = location.hash.replace(/^#\/?/, '').split('/')[0];
     document.body.classList.remove('menu-open');
-    if (page === 'ideas' || S.ideas.some(x => x.id === page)) {
-      if (!$('#ideas')) groupPage();
+    if (S.sections.some(x => x.id === page)) {
+      if (!$('#day')) groupPage();
       setTimeout(() => {
         const el = $('#' + page); if (!el) return;
         const top = el.getBoundingClientRect().top + scrollY - 60;
@@ -258,8 +150,7 @@
       }, 30);
       return;
     }
-    if (page === 'hub') hubPage();
-    else if (page === 'credits') credits();
+    if (page === 'credits') credits();
     else groupPage();
     window.scrollTo(0, 0);
   }
@@ -285,7 +176,6 @@
     if (tl && matchMedia('(hover: none)').matches) tl.classList.toggle('flip');
     if (e.target.closest('.nav-main a')) document.body.classList.remove('menu-open');
   });
-  document.addEventListener('input', e => { if (e.target.closest('.calc')) updateCalc(); });
   document.addEventListener('keydown', e => { if (e.key === 'Enter' && e.target.classList?.contains('tile')) e.target.classList.toggle('flip'); });
 
   let tt;
