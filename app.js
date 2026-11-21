@@ -89,6 +89,9 @@
 
   const cta = () => `<div class="sec-cta">${pill('Start your group outing', '#/start')}</div>`;
 
+  const soon = (what) => `<div class="soon"><span class="soon-dot"></span><div><b>Coming soon</b><span>${what}</span></div></div>`;
+  const placeholder = (id, k, title, what, alt) => `<section class="band${alt ? ' alt' : ''}" id="${id}"><div class="w">${head(k, title)}${soon(what)}${id === 'start' ? '' : cta()}</div></section>`;
+
   function everyBlock() {
     return `<section class="band alt" id="every"><div class="w">
       ${head('For every kind of group', 'Something for Every Group', 'Whatever brings your group together, there is a way to make it a day at the ballpark.')}
@@ -132,10 +135,8 @@
         <div class="hero-btns">${pill('Start Your Group Outing', '#/start')}${pill('Explore Seating', '#/seating', 'ghost')}</div>
         <p class="draft-note">Draft ${S.draft.n} · updated ${S.draft.date}</p>
       </div></section>
-      ${dayBlock()}${everyBlock()}${tiersBlock()}${seatingBlock()}${scheduleBlock()}${startBlock()}${contactBlock()}
+      ${placeholder('day', 'Visuals', 'A Day at the Park', 'Photos and steps showing what a group day at Daikin Park looks like.')}${everyBlock()}${placeholder('tiers', 'Tiers & pricing', 'Tiers & Pricing', 'Group tiers and prices, clearly different from each other.')}${placeholder('seating', 'Seating', 'Seating', 'A seating chart showing where groups sit.', true)}${placeholder('schedule', 'Schedule', 'Schedule & Theme Nights', 'Game dates and the theme nights groups can join.')}${placeholder('start', 'Interest form', 'Start Your Group Outing', 'The form groups fill out to start booking.', true)}${placeholder('contact', 'Contact', 'Contact', 'Who to reach with questions, and how.')}
     </div>`;
-    if (window.renderStadium) { window.renderStadium($('#stadium'), { onSelect: showZone }); showZone(null); }
-    $('.iform').addEventListener('submit', e => { e.preventDefault(); e.target.querySelector('.note').textContent = 'Demo only: nothing was sent.'; });
   }
 
   function credits() {

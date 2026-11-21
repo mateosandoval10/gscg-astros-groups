@@ -348,3 +348,10 @@ img { max-width: 100%; }
 @media (max-width: 1100px) { .nav-cta { margin-left: auto; padding: 8px 12px; } }
 @media (max-width: 900px) { .every { grid-template-columns: repeat(2, 1fr); } .months { grid-template-columns: repeat(3, 1fr); } }
 @media (max-width: 560px) { .every, .months { grid-template-columns: 1fr 1fr; } }
+
+/* ---------- draft 3 placeholders */
+.soon { display: flex; gap: 16px; align-items: center; background: #111b30; border: 1.5px dashed rgba(255,255,255,.22); border-radius: 12px; padding: 26px 28px; }
+.soon b { display: block; font: 900 26px var(--display); text-transform: uppercase; color: #fff; }
+.soon span { color: var(--muted); font-size: 15px; }
+.soon-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--orange); box-shadow: 0 0 0 7px rgba(235,110,31,.18); flex: none; }
+.band .sec-sub:empty { display: none; }

@@ -3,7 +3,7 @@
 const U = id => `https://images.unsplash.com/photo-${id}?w=1200&q=75&fm=jpg&fit=crop`;
 window.SITE = {
   // Bump this every night after adding the team's changes.
-  draft: { n: 2, date: 'November 21, 2026' },
+  draft: { n: 3, date: 'November 21, 2026' },
 
   hero: {
     kicker: 'Group tickets at Daikin Park',
@@ -19,6 +19,7 @@ window.SITE = {
     { id: 'tiers', nav: 'Tiers & Pricing' },
     { id: 'seating', nav: 'Seating' },
     { id: 'schedule', nav: 'Schedule' },
+    { id: 'start', nav: 'Interest Form' },
     { id: 'contact', nav: 'Contact' },
   ],
 
