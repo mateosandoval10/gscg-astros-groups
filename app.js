@@ -18,7 +18,6 @@
   // Astros photo layered over the local photo, so the local one shows if the CDN fails.
   const bg = (x, size = 1024) => x.ast ? `url('${x.ast.startsWith('http') ? x.ast : `https://img.mlbstatic.com/mlb-images/image/upload/t_16x9/t_w${size}/mlb/${x.ast}.jpg`}'), url('${x.img}')` : `url('${x.img}')`;
   const tierAt = n => [...S.tiers].reverse().find(t => n >= t.min);
-  const who = c => c === 'all' ? 'Every group' : S.communities[c];
 
   // ---------- header
   function header() {
@@ -26,7 +25,8 @@
       <a class="logo" href="#/" aria-label="Back to the top"><img src="img/astros.png" alt=""></a>
       <span class="mock-badge">Draft ${S.draft.n}</span>
       <button class="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
-      <ul class="nav-main">${S.sections.map(x => `<li><a href="#/${x.id}">${x.nav}</a></li>`).join('')}</ul>`;
+      <ul class="nav-main">${S.sections.map(x => `<li><a href="#/${x.id}">${x.nav}</a></li>`).join('')}</ul>
+      <a class="pill sm nav-cta" href="#/start">Start your group outing</a>`;
     $('.burger').addEventListener('click', e => {
       const open = document.body.classList.toggle('menu-open'); e.currentTarget.setAttribute('aria-expanded', open);
     });
@@ -39,7 +39,7 @@
   function tile(x) {
     const tier = x.min ? tierAt(x.min) : null;
     return `<article class="tile${x.c ? ' c-' + x.c : ''}" data-c="${x.c || ''}" tabindex="0">
-      <div class="tile-face" style="background-image:${bg(x)}"><h3>${x.t}</h3>${x.c ? `<span class="tile-tag">${S.communities[x.c]}</span>` : ''}</div>
+      <div class="tile-face" style="background-image:${bg(x)}"><h3>${x.t}</h3></div>
       <div class="tile-card"><h3>${x.t}</h3><hr><p>${x.d}</p>${tier ? `<p class="tile-meta">Unlocks at ${x.min}+ tickets · ${tier.name} tier</p>` : ''}</div>
     </article>`;
   }
@@ -54,11 +54,12 @@
       <h3 class="sub-title">Moments for your group</h3>
       ${grid(S.experiences)}
       <p class="hint">Hover or tap a moment to see what it includes.</p>
+      ${cta()}
     </div></section>`;
   }
 
   function tiersBlock() {
-    return `<section class="band alt" id="tiers"><div class="w">
+    return `<section class="band" id="tiers"><div class="w">
       ${head('Tiers & pricing', 'The More You Bring, The More You Get', S.pricing)}
       <div class="tier-steps">
         ${S.tiers.map((t, i) => `<div class="tier t-${t.key}" style="--h:${i}">
@@ -68,11 +69,12 @@
         </div>`).join('')}
       </div>
       <p class="hint">Group tiers are a GSCG proposal. Perks: To confirm with the Astros.</p>
+      ${cta()}
     </div></section>`;
   }
 
   function seatingBlock() {
-    return `<section class="band" id="seating"><div class="w">
+    return `<section class="band alt" id="seating"><div class="w">
       ${head('Seating', 'Find Your Group’s Seats', 'Tap any area of the ballpark to see who it is good for. Prices and availability: To confirm.')}
       <div class="seat-wrap"><div class="stadium" id="stadium"></div><aside class="seat-panel" id="seat-panel" aria-live="polite"></aside></div>
     </div></section>`;
@@ -85,30 +87,39 @@
       <dl><dt>Good for</dt><dd>${info.good || 'To confirm'}</dd><dt>From</dt><dd class="tbc">To confirm</dd></dl>${pill('Start your group outing', '#/start')}`;
   }
 
-  function nightsBlock() {
-    return `<section class="band alt" id="nights"><div class="w">
-      ${head('Schedule', 'Theme Nights', 'Build your outing around a night made for your group. 2027 dates: To confirm.')}
-      <div class="chips" role="toolbar">${[['all', 'All Nights'], ...Object.entries(S.communities)].map(([k, l], i) => `<button data-c="${k}" class="${i ? '' : 'on'}">${l}</button>`).join('')}</div>
-      ${grid(S.nights)}
-      <p class="hint">Hover or tap a night to see what it includes.</p>
+  const cta = () => `<div class="sec-cta">${pill('Start your group outing', '#/start')}</div>`;
+
+  function everyBlock() {
+    return `<section class="band alt" id="every"><div class="w">
+      ${head('For every kind of group', 'Something for Every Group', 'Whatever brings your group together, there is a way to make it a day at the ballpark.')}
+      <div class="every">${S.every.map(x => `<article class="ev"><div class="ev-img" style="background-image:url('${x.img}')"></div><div class="ev-body"><h3>${x.t}</h3><p>${x.d}</p></div></article>`).join('')}</div>
+      ${cta()}
+    </div></section>`;
+  }
+
+  function scheduleBlock() {
+    return `<section class="band" id="schedule"><div class="w">
+      ${head('Schedule', 'Pick Your Date', 'The 2027 season, with theme nights any group can join. Game dates and theme night dates: To confirm.')}
+      <div class="months">${S.schedule.map(m => `<div class="month"><b>${m}</b><span>Games and theme nights coming soon</span></div>`).join('')}</div>
+      <h3 class="sub-title">Theme nights</h3>
+      ${grid(S.themeNights)}
+      <p class="hint">Hover or tap a theme night to see what it includes.</p>
+      ${cta()}
     </div></section>`;
   }
 
   function startBlock() {
     return `<section class="band start" id="start"><div class="w">
       <div class="start-grid"><div>${head('Interest form', 'Start Your Group Outing', 'Tell us about your group and a group sales rep will follow up to get the ball rolling.')}</div>
-      <form class="iform" novalidate>${S.formFields.map(q => /group type/i.test(q)
-        ? `<label>${q}<select><option>Choose one</option>${Object.values(S.communities).concat(['Company', 'Family and friends', 'Other']).map(o => `<option>${o}</option>`).join('')}</select></label>`
-        : /language/i.test(q) ? `<label>${q}<select><option>English</option><option>Español</option></select></label>`
-        : `<label>${q}<input type="${/email/i.test(q) ? 'email' : /size/i.test(q) ? 'number' : 'text'}"></label>`).join('')}
+      <form class="iform" novalidate>${S.formFields.map(q => `<label>${q}<input type="${/email/i.test(q) ? 'email' : /size/i.test(q) ? 'number' : 'text'}"></label>`).join('')}
         <div class="form-foot"><button class="pill" type="submit">Send</button><span class="note">Demo form: nothing is collected or sent.</span></div></form></div>
     </div></section>`;
   }
 
   function contactBlock() {
-    return `<section class="band alt" id="contact"><div class="w">
+    return `<section class="band" id="contact"><div class="w">
       ${head('Contact', 'Questions? Talk to Us')}
-      <div class="contacts">${S.contact.map(([h, p]) => `<div class="contact"><h3>${h}</h3><p>${p.replace(/(To (confirm|add)[^.]*\.)/g, '<span class="tbc">$1</span>')}</p></div>`).join('')}</div>
+      <div class="contacts narrow-c">${S.contact.map(([h, p]) => `<div class="contact"><h3>${h}</h3><p>${p.replace(/(To (confirm|add)[^.]*\.)/g, '<span class="tbc">$1</span>')}</p></div>`).join('')}</div>
     </div></section>`;
   }
 
@@ -121,7 +132,7 @@
         <div class="hero-btns">${pill('Start Your Group Outing', '#/start')}${pill('Explore Seating', '#/seating', 'ghost')}</div>
         <p class="draft-note">Draft ${S.draft.n} · updated ${S.draft.date}</p>
       </div></section>
-      ${dayBlock()}${tiersBlock()}${seatingBlock()}${nightsBlock()}${startBlock()}${contactBlock()}
+      ${dayBlock()}${everyBlock()}${tiersBlock()}${seatingBlock()}${scheduleBlock()}${startBlock()}${contactBlock()}
     </div>`;
     if (window.renderStadium) { window.renderStadium($('#stadium'), { onSelect: showZone }); showZone(null); }
     $('.iform').addEventListener('submit', e => { e.preventDefault(); e.target.querySelector('.note').textContent = 'Demo only: nothing was sent.'; });
@@ -141,7 +152,7 @@
   function route() {
     const page = location.hash.replace(/^#\/?/, '').split('/')[0];
     document.body.classList.remove('menu-open');
-    if (S.sections.some(x => x.id === page)) {
+    if (page === 'start' || S.sections.some(x => x.id === page)) {
       if (!$('#day')) groupPage();
       setTimeout(() => {
         const el = $('#' + page); if (!el) return;
